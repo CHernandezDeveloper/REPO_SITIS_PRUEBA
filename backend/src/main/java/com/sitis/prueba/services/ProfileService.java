@@ -19,21 +19,31 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
+    /**
+     * Metodo para agregar un perfil a nuestra bd
+     * @param profile Varible del tipo perfil que se pretende agregar
+     * @return ResponseEntity con la respuesta de la request
+     */
     public ResponseEntity addProfile(Profile profile){
-        logger.info("Start method add profile");
+        this.logger.info("Start method add profile");
 
         if(this.profileRepository.findByName(profile.getName()) == null && profile.getName() != null){
             this.profileRepository.save(profile);
-            logger.info("Profile added");
+            this.logger.info("Profile added");
 
             return ResponseEntity.ok("Profile added");
         }
-        logger.info("Profile already exists");
+        this.logger.warn("Profile already exists");
 
         return ResponseEntity.badRequest().build();
     }
 
+    /**
+     * Metodo para traer todos los perfiles de la bd
+     * @return Lista con los perfiles que se encuentran en la bd
+     */
     public List<Profile> getAllProfiles(){
+        this.logger.info("Star method get all profiles");
         return this.profileRepository.findAll();
     }
 }
