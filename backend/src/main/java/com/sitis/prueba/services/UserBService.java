@@ -1,6 +1,7 @@
 package com.sitis.prueba.services;
 
 import com.sitis.prueba.entities.UserB;
+import com.sitis.prueba.repositories.ProfileRepository;
 import com.sitis.prueba.repositories.UserBRepository;
 
 import org.slf4j.Logger;
@@ -17,11 +18,12 @@ public class UserBService {
 
     private final Logger logger = LoggerFactory.getLogger(UserBService.class);
     private UserBRepository userBRepository;
+    private ProfileRepository profileRepository;
 
-    public UserBService(UserBRepository userBRepository){
+    public UserBService(UserBRepository userBRepository, ProfileRepository profileRepository){
 
         this.userBRepository = userBRepository;
-
+        this.profileRepository = profileRepository;
     }
 
     /**
@@ -33,7 +35,8 @@ public class UserBService {
         logger.info("Start method add user");
 
         if(this.userBRepository.findByUserName(userB.getUserName()) == null
-                && this.userBRepository.findByEmail(userB.getEmail()) == null){
+                && this.userBRepository.findByEmail(userB.getEmail()) == null
+                && this.profileRepository.findByName(userB.getProfile()) != null){
 
             this.userBRepository.save(userB);
             logger.info("User registered in our bd");
