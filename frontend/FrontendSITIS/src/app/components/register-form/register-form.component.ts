@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -16,15 +16,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterFormComponent implements OnInit {
 
-
-  protected createdUser: boolean = false;
-  protected profiles: IProfile[] = [{ name: '' }];
-  protected regForm: FormGroup = new FormGroup({});
-  protected profile = new FormControl<IProfile | null>(null,
-    [Validators.required]
-  );
-
-  error: boolean = false;
+  @Input()profiles: IProfile[] = [{ name: '' }];
+  regForm: FormGroup = new FormGroup({});
+  profile = new FormControl<IProfile | null>(null, Validators.required);
+  @Output() emitter = new EventEmitter();
 
   constructor(
     private userService: UserService,
@@ -41,45 +36,15 @@ export class RegisterFormComponent implements OnInit {
       ]),
       confirmPassword: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      profile: this.profile,
+      profile: this.profile
     });
 
-    //* Obtenermos los perfiles de la bd
-    this.userService.getProfiles().subscribe((response) => {
-      this.profiles = response;
-    });
+
   }
 
   createUser() {
 
-    if (this.regForm.value.password === this.regForm.value.confirmPassword) {
-      let user: IUser = {
-        userName: this.regForm.value.userName,
-        email: this.regForm.value.email,
-        password: this.regForm.value.password,
-        profile: this.profile?.value?.name
-      };
+    this.emitter.emit(this.regForm);
 
-      this.userService.createUser(user).subscribe({
-        next: (data: IUser) => {
-          this.createdUser = data.userName == user.userName;
-
-        },
-        error:(error)=>{
-
-          this.createdUser = false;
-        },
-        complete: () => {
-          this.error = false;
-          this.createdUser = true;
-          this.regForm.reset()
-
-        },
-      });
-    } else {
-      this.regForm.reset();
-      this.error = true;
-
-    }
   }
 }

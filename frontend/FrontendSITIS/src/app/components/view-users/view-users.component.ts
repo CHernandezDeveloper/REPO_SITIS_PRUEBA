@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IProfile } from 'src/app/models/profile.model';
 import { IUser } from 'src/app/models/users.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -21,26 +23,33 @@ export class ViewUsersComponent implements OnInit {
     password : "",
     profile : ""}]
   ;
-
+  @Input()profiles: IProfile[] = [{ name: '' }];
+  viewForm: FormGroup = new FormGroup ({})
+  profile = new FormControl<IProfile | null>(null, Validators.required);
   filtro : string = "";
   activeFilter : boolean = false;
-  constructor() { }
+  constructor(private userService : UserService) { }
 
   ngOnInit(): void {
 
   }
   filter(){
-    if(this.filtro.length==0){
+    this.listaFiltrada = [];
+    let filter = this.profile.value?.name;
+
+    console.log(this.profile.value?.name)
+    if(filter == undefined){
       this.activeFilter = false;
 
     }else{
       this.activeFilter = true;
       this.users.filter((x)=>{
-      if(x.profile == this.filtro ){
+      if(x.profile == filter ){
         this.listaFiltrada.push(x);
       }
     })
     }
 
   }
+
 }

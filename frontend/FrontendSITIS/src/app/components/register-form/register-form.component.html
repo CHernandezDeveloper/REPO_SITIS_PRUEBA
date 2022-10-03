@@ -2,8 +2,8 @@
 
 
 
-  <form [formGroup]="regForm" class="reg-form" (submit)="createUser()">
-    <mat-error *ngIf="error">Las constraseñas no coinciden</mat-error>
+  <form [formGroup]="regForm" class="reg-form">
+    <!-- <mat-error *ngIf="error">Las constraseñas no coinciden</mat-error> -->
 
     <mat-form-field>
       <mat-label>Nombre de Usuario</mat-label>
@@ -19,11 +19,11 @@
 
     </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Confirmar Contraseña</mat-label>
-        <input matInput type="password" placeholder="Ingrese su contraseña" formControlName="confirmPassword">
-        <mat-error *ngIf="regForm.get('confirmPassword')?.errors?.['required']">Este campo es  obligatorio</mat-error>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Confirmar Contraseña</mat-label>
+      <input matInput type="password" placeholder="Ingrese su contraseña" formControlName="confirmPassword">
+      <mat-error *ngIf="regForm.get('confirmPassword')?.errors?.['required']">Este campo es  obligatorio</mat-error>
+    </mat-form-field>
 
     <mat-form-field >
       <mat-label>Correo Electronico</mat-label>
@@ -34,6 +34,12 @@
 
     </mat-form-field>
 
+    <!-- <mat-form-field>
+      <mat-label>Perfil</mat-label>
+      <input class="temp" matInput placeholder="Ej. Invitado" formControlName="profile">
+      <mat-error *ngIf="regForm.get('email')?.errors?.['required']">Perfil es obligatorio</mat-error>
+    </mat-form-field> -->
+
     <mat-form-field >
       <mat-label>Perfil</mat-label>
       <mat-select [formControl]="profile">
@@ -43,15 +49,9 @@
         </mat-option>
       </mat-select>
       <mat-error *ngIf="profile.hasError('required')">El perfil es un campo obligatorio</mat-error>
-
     </mat-form-field>
 
     <button [disabled]="regForm.invalid" mat-raised-button class="color" type="submit" (click)="createUser()">Crear Usuario</button>
-
-    <ng-container *ngIf="createdUser">
-      <mat-label>Usuario Creado Con exito</mat-label>
-    </ng-container>
-
 
   </form>
 
