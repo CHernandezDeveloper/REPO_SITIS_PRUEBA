@@ -4,18 +4,14 @@ import com.sitis.prueba.entities.UserB;
 import com.sitis.prueba.services.UserBService;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 public class UserBController {
 
     UserBService userBService;
@@ -38,7 +34,7 @@ public class UserBController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity registerUser(@RequestBody UserB userB){
+    public ResponseEntity<UserB> registerUser(@RequestBody UserB userB){
 
         return this.userBService.addUser(userB);
     }

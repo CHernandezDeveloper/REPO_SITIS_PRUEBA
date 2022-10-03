@@ -4,7 +4,7 @@ export const USERS:IUser[] = [
   {
     userName : "pepe",
     email : "pepe@gmail.com",
-    password : "adfasf",
-    profile : "asd"
+    password : "1234",
+    profile : "Administrador"
   }
 ]

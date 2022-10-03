@@ -10,6 +10,11 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { ViewUsersComponent } from './components/view-users/view-users.component';
 import { TabNavComponent } from './components/tab-nav/tab-nav.component';
 
+import { MaterialModule } from './modules/material/material.module';
+
+import {HttpClientModule} from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +29,11 @@ import { TabNavComponent } from './components/tab-nav/tab-nav.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

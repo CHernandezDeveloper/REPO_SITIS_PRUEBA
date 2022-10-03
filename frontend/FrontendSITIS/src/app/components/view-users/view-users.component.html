@@ -1,1 +1,32 @@
-<p>view-users works!</p>
+<input placeholder="Ingrese el filtro" [(ngModel)]="filtro">
+<button (click)="filter()">Filtrar</button>
+
+<ng-container *ngIf="activeFilter; else disabledFilter">
+<table>
+  <tr *ngFor="let user of listaFiltrada;let i = index;let even = even">
+
+    <div *ngIf="!even">
+      <td>{{user.userName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.profile}}</td>
+    </div>
+
+  </tr>
+</table>
+</ng-container>
+<ng-template #disabledFilter>
+
+<table>
+  <tr *ngFor="let user of users;let i = index;let even = even">
+
+    <div *ngIf="!even">
+      <td>{{user.userName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.profile}}</td>
+    </div>
+
+  </tr>
+</table>
+</ng-template>
+
+

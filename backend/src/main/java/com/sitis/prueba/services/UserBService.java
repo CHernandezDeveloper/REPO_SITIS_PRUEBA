@@ -7,6 +7,8 @@ import com.sitis.prueba.repositories.UserBRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class UserBService {
      * @param userB Usuario que se quiere agregar
      * @return ResponseEntity indicado el resultado de la operacion
      */
-    public ResponseEntity addUser(UserB userB){
+    public ResponseEntity<UserB> addUser(UserB userB){
         logger.info("Start method add user");
 
         if(this.userBRepository.findByUserName(userB.getUserName()) == null
@@ -40,7 +42,7 @@ public class UserBService {
 
             this.userBRepository.save(userB);
             logger.info("User registered in our bd");
-            return ResponseEntity.ok("User registered");
+            return new ResponseEntity<UserB>(userB,null, HttpStatus.CREATED);
         }
         logger.warn("User already exists in our bd");
         return ResponseEntity.badRequest().build();

@@ -1,1 +1,12 @@
-<p>tab-nav works!</p>
+<div class="container-tab">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Listar Usuarios">
+      <app-view-users  [users]="users"></app-view-users>
+    </mat-tab>
+
+    <mat-tab label="Crear Usuario" mat-align-tab="center">
+      <app-register-form></app-register-form>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
